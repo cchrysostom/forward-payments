@@ -1,0 +1,1 @@
+CREATE TABLE `AddressBalance` ( `paymentAddress` TEXT NOT NULL, `balance` INTEGER NOT NULL DEFAULT 0, `balanceDate` TEXT, PRIMARY KEY(`paymentAddress`) )

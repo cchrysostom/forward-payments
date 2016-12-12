@@ -1,0 +1,1 @@
+CREATE TABLE PaymentAddress (destinationAddress TEXT, paymentAddress TEXT, targetBalance INTEGER, payableBalance INTEGER, status INTEGER, forwarded INTEGER)
