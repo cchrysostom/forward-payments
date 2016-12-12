@@ -1,0 +1,13 @@
+Skipping paying 12076 to 13ompMg1Ygn9vbPKPpKNMVXXvtWJoCZaCx. Threshold is 128530.
+Payment made with transaction, b3af5d658bafb940544323d939712584e88aaeba53a5e586487d43ef760b2663. Time: 1481580483351
+Payment made with transaction, e96fb17b99e5394f1a6746cf25ee980b1c56a71fa6dffc5a53bde01f8b48b02c. Time: 1481580504569
+
+Skipping paying 12076 to 13ompMg1Ygn9vbPKPpKNMVXXvtWJoCZaCx. Threshold is 128477.
+Payment made with transaction, 8bc6c7d98dbad6c3820c4e49fb06aea9b42a9d245b8a10301e75db926f1f5d4e. Time: 1481581489320
+Payment made with transaction, d2692229d15d155ff70cd55ba9375b9c9ce7bf2fc10ee264124e4b3b471bb467. Time: 1481581494311
+
+Skipping paying 12076 to 13ompMg1Ygn9vbPKPpKNMVXXvtWJoCZaCx. Threshold is 128477.
+Payment made with transaction, 39d9480c0bdd28ec10379757f90761a8e180bbc295447ddf4d49b475982db875. Time: 1481581674593
+Skipping paying 41336 to 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa. Threshold is 128477.
+Payment made with transaction, 59317918b0f031cd96e16ecd001318c6644005c6d8bce9150afaa788c1c21adb. Time: 1481581684478
+Payment made with transaction, 80eadafaaf06f337f317413de3f75107bbb8a4c69cdccb145c3a139d977136b8. Time: 1481581696293

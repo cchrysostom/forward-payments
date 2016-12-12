@@ -16,19 +16,35 @@ let fwdPymtAllowed = true;
 
 function sendTransaction(wallet, address, amount, btcPrice) {
     if (!fwdPymtAllowed) {
-      setTimeout(sendTransaction(wallet, address, amount), 333);
+      setTimeout(sendTransaction, 5000, wallet, address, amount, btcPrice);
+      return;
     }
 
-    
     if (amount < pricePerDollar(btcPrice)) {
       console.log("Skipping paying " + amount + " to " + address + ". Threshold is " + pricePerDollar(btcPrice) + ".");
       return;
     }
 
     fwdPymtAllowed = false;
-    console.log("pay address, " + address + ', ' + amount + ' satoshis. ' + Date.now());
-    sleep(500);
-    fwdPymtAllowed = true;
+    let pay = {};
+    pay[address] = amount;
+    wallet.unlock({passphrase: process.env.WALLET_PASSWORD}, function(err) {
+      if (err) {
+        console.log("Wallet unlock error: ", err, address, amount);
+        return;
+      }
+
+      wallet.pay(pay)
+        .then(function(txid) {
+          console.log("Payment made with transaction, " + txid + ". Time: " + Date.now());
+          updateForwardedStatus(address);
+          fwdPymtAllowed = true;
+        })
+        .catch(function(error) {
+          console.log("Error making payment of " + amount + " to " + address + ". ", error);
+          fwdPymtAllowed = true;
+        });
+    });
 }
 
 function sleep(ms) {
@@ -57,9 +73,9 @@ function makePayments(client, totalToSend, payments) {
               }
               return value;
           })
-          .then(function(value) { 
+          .then(function(value) {
               for (let i=0; i < payments.length; i++) {
-                  sendTransaction(wallet, payments[i].address, payments[i].amount, price);
+                  setTimeout(sendTransaction, 1000+(i*5000), wallet, payments[i].address, payments[i].amount, price);
               }
           })
           .catch(function(ex) {
@@ -74,7 +90,20 @@ function pricePerDollar(price) {
     let satoshisPerDollar = blocktrail.toSatoshi(1/btcPrice);
     return satoshisPerDollar;
 }
- 
+
+
+function updateForwardedStatus(address) {
+    let updateSql = "UPDATE PaymentAddress SET forwarded = 1 WHERE destinationAddress = ?";
+    let updateStmt = payprocDb.prepare(updateSql);
+    updateStmt.run(address, function(error) {
+      if (error) {
+        console.log("Error updating forwarded for address, " + address + ".");
+      }
+    });
+    updateStmt.finalize();
+}
+
+
 payprocDb.all(query, function(err, rows) {
   let sumToFwd = new Map();
   let payAddrs = new Map();
